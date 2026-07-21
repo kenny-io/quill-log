@@ -57,6 +57,16 @@ export function createLogger(options = {}) {
     error: (msg, fields) => emit("error", msg, fields),
 
     /**
+     * Whether a record at this level would be emitted. Use to skip building
+     * expensive log fields that would be dropped anyway.
+     * @param {"debug"|"info"|"warn"|"error"} lvl
+     * @returns {boolean}
+     */
+    isLevelEnabled(lvl) {
+      return lvl in LEVELS && LEVELS[lvl] >= LEVELS[level];
+    },
+
+    /**
      * The current minimum level.
      * @returns {"debug"|"info"|"warn"|"error"}
      */

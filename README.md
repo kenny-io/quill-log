@@ -29,6 +29,7 @@ reqLog.warn("slow upstream", { ms: 1840 });
 - `log.child(fields)` — derive a logger with extra base fields.
 - `log.setLevel(level)` — change the minimum level at runtime; throws `RangeError` on unknown levels.
 - `log.level()` — the current minimum level.
+- `log.isLevelEnabled(level)` — whether a record at that level would be emitted; use it to skip building expensive fields.
 - `jsonFormatter(record)` — the default JSON-lines stdout sink; write your own to send records elsewhere.
 - `prettyFormatter(record)` — human-readable single-line output for local development (`12:04:05 WARN slow upstream ms=1840`).
 
