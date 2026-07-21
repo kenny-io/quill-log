@@ -41,13 +41,12 @@ export function prettyFormatter(record) {
  * @returns {object} logger with debug/info/warn/error and child()
  */
 export function createLogger(options = {}) {
-  const level = options.level ?? "info";
+  let level = options.level ?? "info";
   const formatter = options.formatter ?? jsonFormatter;
   const base = options.base ?? {};
-  const threshold = LEVELS[level];
 
   const emit = (lvl, msg, fields = {}) => {
-    if (LEVELS[lvl] < threshold) return;
+    if (LEVELS[lvl] < LEVELS[level]) return;
     formatter({ level: lvl, msg, time: new Date().toISOString(), ...base, ...fields });
   };
 
@@ -56,6 +55,16 @@ export function createLogger(options = {}) {
     info: (msg, fields) => emit("info", msg, fields),
     warn: (msg, fields) => emit("warn", msg, fields),
     error: (msg, fields) => emit("error", msg, fields),
+
+    /**
+     * Change the minimum level at runtime (e.g. flip to "debug" while
+     * investigating an incident, without recreating the logger).
+     * @param {"debug"|"info"|"warn"|"error"} next
+     */
+    setLevel(next) {
+      if (!(next in LEVELS)) throw new RangeError(`unknown level: ${next}`);
+      level = next;
+    },
 
     /**
      * Create a child logger whose records include extra base fields.
