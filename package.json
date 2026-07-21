@@ -1,0 +1,12 @@
+{
+  "name": "quill-log",
+  "version": "0.1.0",
+  "description": "Structured, leveled logging for Node.js with pluggable formatters",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": ["logging", "structured-logging", "logger"],
+  "license": "MIT"
+}
