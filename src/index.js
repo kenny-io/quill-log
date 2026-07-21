@@ -57,6 +57,14 @@ export function createLogger(options = {}) {
     error: (msg, fields) => emit("error", msg, fields),
 
     /**
+     * The current minimum level.
+     * @returns {"debug"|"info"|"warn"|"error"}
+     */
+    level() {
+      return level;
+    },
+
+    /**
      * Change the minimum level at runtime (e.g. flip to "debug" while
      * investigating an incident, without recreating the logger).
      * @param {"debug"|"info"|"warn"|"error"} next
