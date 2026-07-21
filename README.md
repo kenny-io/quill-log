@@ -28,6 +28,7 @@ reqLog.warn("slow upstream", { ms: 1840 });
 - `log.debug/info/warn/error(msg, fields?)` — emit a record if at or above the configured level.
 - `log.child(fields)` — derive a logger with extra base fields.
 - `jsonFormatter(record)` — the default JSON-lines stdout sink; write your own to send records elsewhere.
+- `prettyFormatter(record)` — human-readable single-line output for local development (`12:04:05 WARN slow upstream ms=1840`).
 
 ## License
 
