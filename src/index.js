@@ -16,6 +16,22 @@ export function jsonFormatter(record) {
 }
 
 /**
+ * Human-readable formatter for local development:
+ * `12:04:05 WARN slow upstream ms=1840`.
+ * @param {object} record
+ */
+export function prettyFormatter(record) {
+  const { level, msg, time, ...fields } = record;
+  const clock = time.slice(11, 19);
+  const extras = Object.entries(fields)
+    .map(([key, value]) => `${key}=${JSON.stringify(value)}`)
+    .join(" ");
+  process.stdout.write(
+    `${clock} ${level.toUpperCase().padEnd(5)} ${msg}${extras ? " " + extras : ""}\n`
+  );
+}
+
+/**
  * Create a logger.
  *
  * @param {object} [options]
